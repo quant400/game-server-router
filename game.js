@@ -8,10 +8,10 @@ router.get('/',function(req,res){
 });
 
 router.get('/metaverse',function(req,res){
-  res.sendFile(path.join(__dirname+'/builds/MetaverseBuild/index.html'));
+  res.sendFile(path.join(__dirname+'/builds/game-builds/MetaverseBuild/index.html'));
 });
 
-app.use(express.static('builds/MetaverseBuild', {
+app.use(express.static('builds/game-builds/MetaverseBuild', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
