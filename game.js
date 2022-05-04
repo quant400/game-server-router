@@ -44,6 +44,10 @@ app.use(express.static('builds/minigame-chicken-run/WebGL Builds', {
       }
   }
 }))
+
+app.use(express.static('builds/server/public'))
+app.use(express.static('builds/app/server/public'))
+
 // app.use('/', router);
 app.listen(process.env.port || 3000);
 
