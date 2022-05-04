@@ -19,6 +19,10 @@ app.get('/app',function(req,res){
   res.sendFile(path.join(__dirname+'/builds/game-builds/server/public/index.html'));
 });
 
+app.get('/app2',function(req,res){
+  res.sendFile(path.join(__dirname+'/builds/game-builds/app/server/public/index.html'));
+});
+
 app.use(express.static('builds/game-builds/MetaverseBuild', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
