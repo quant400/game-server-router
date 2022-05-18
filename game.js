@@ -16,6 +16,10 @@ app.get('/fight-the-bear',function(req,res){
   res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'));
 });
 
+app.get('/metaverse',function(req,res){
+  res.sendFile(path.join(buildPath + 'metaverse/WebGL Builds/index.html'));
+});
+
 app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
@@ -28,6 +32,17 @@ app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
 }))
 
 app.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
+  setHeaders: function(res, path) {
+      if(path.endsWith(".gz")){
+        res.set("Content-Encoding", "gzip")
+      }
+      if(path.endsWith("wasm.gz")) {
+        res.set("Content-Type", "application/wasm")
+      }
+  }
+}))
+
+app.use(express.static('game-deployment-builds/metaverse/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
