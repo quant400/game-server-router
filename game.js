@@ -1,29 +1,22 @@
-const express = require('express');
-const app = express();
-const path = require('path');
+const express = require('express')
+const app = express()
+const path = require('path')
 // const router = express.Router();
+const buildPath = __dirname + '/game-deployment-builds/'
 
 app.get('/',function(req,res){
   res.send("Staging server is running...")
 });
 
 app.get('/chicken-run',function(req,res){
-  res.sendFile(path.join(__dirname+'/builds/minigame-chicken-run/WebGL Builds/index.html'));
+  res.sendFile(path.join(buildPath + 'chicken-run/WebGL Builds/index.html'));
 });
 
-app.get('/metaverse',function(req,res){
-  res.sendFile(path.join(__dirname+'/builds/game-builds/MetaverseBuild/index.html'));
+app.get('/fight-the-bear',function(req,res){
+  res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'));
 });
 
-app.get('/app',function(req,res){
-  res.sendFile(path.join(__dirname+'/builds/server/public/index.html'));
-});
-
-app.get('/app2',function(req,res){
-  res.sendFile(path.join(__dirname+'/builds/app/server/public/index.html'));
-});
-
-app.use(express.static('builds/game-builds/MetaverseBuild', {
+app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -34,7 +27,7 @@ app.use(express.static('builds/game-builds/MetaverseBuild', {
   }
 }))
 
-app.use(express.static('builds/minigame-chicken-run/WebGL Builds', {
+app.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -44,9 +37,6 @@ app.use(express.static('builds/minigame-chicken-run/WebGL Builds', {
       }
   }
 }))
-
-app.use(express.static('builds/server/public'))
-app.use(express.static('builds/app/server/public'))
 
 // app.use('/', router);
 app.listen(process.env.port || 3000);
