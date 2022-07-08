@@ -5,44 +5,10 @@ const path = require('path')
 const buildPath = __dirname + '/game-deployment-builds/'
 
 app.get('/',function(req,res){
-  res.send("Staging server is running...")
-});
-
-app.get('/tutorial',function(req,res){
-  res.sendFile(path.join(buildPath + 'tutorial/WebGL Builds/index.html'))
-});
-
-app.get('/chicken-run',function(req,res){
   res.sendFile(path.join(buildPath + 'chicken-run/WebGL Builds/index.html'));
 });
 
-app.get('/fight-the-bear',function(req,res){
-  res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'));
-});
-
-app.use('/static/tutorial', express.static('game-deployment-builds/tutorial/WebGL Builds', {
-  setHeaders: function(res, path) {
-      if(path.endsWith(".gz")){
-        res.set("Content-Encoding", "gzip")
-      }
-      if(path.endsWith("wasm.gz")) {
-        res.set("Content-Type", "application/wasm")
-      }
-  }
-}))
-
-app.use('/static/chicken-run', express.static('game-deployment-builds/chicken-run/WebGL Builds', {
-  setHeaders: function(res, path) {
-      if(path.endsWith(".gz")){
-        res.set("Content-Encoding", "gzip")
-      }
-      if(path.endsWith("wasm.gz")) {
-        res.set("Content-Type", "application/wasm")
-      }
-  }
-}))
-
-app.use('/static/fight-the-bear', express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
+app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
