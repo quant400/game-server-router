@@ -3,21 +3,17 @@ const app = express()
 const path = require('path')
 const buildPath = __dirname + '/game-deployment-builds/'
 
-const chickenRouter = express.Router()
-const tutorialRouter = express.Router()
-const bearRouter = express.Router()
-
 app.get('/',function(req,res){
   res.send('server is running...')
 });
 
-chickenRouter.get('/',function(req,res){
+app.get('/chicken-run',function(req,res){
   res.sendFile(path.join(buildPath + 'chicken-run/WebGL Builds/index.html'))
 });
 
-chickenRouter.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
+app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
-      if(path.endsWith(".gz")){
+      if(path.endsWith(".gz") || path.endsWith(".unityweb")){
         res.set("Content-Encoding", "gzip")
       }
       if(path.endsWith("wasm.gz")) {
@@ -26,11 +22,11 @@ chickenRouter.use(express.static('game-deployment-builds/chicken-run/WebGL Build
   }
 }))
 
-tutorialRouter.get('/',function(req,res){
+app.get('/tutorial',function(req,res){
   res.sendFile(path.join(buildPath + 'tutorial/WebGL Builds/index.html'))
 });
 
-tutorialRouter.use(express.static('game-deployment-builds/tutorial/WebGL Builds', {
+app.use(express.static('game-deployment-builds/tutorial/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -41,11 +37,11 @@ tutorialRouter.use(express.static('game-deployment-builds/tutorial/WebGL Builds'
   }
 }))
 
-bearRouter.get('/',function(req,res){
+app.get('/fight-the-bear',function(req,res){
   res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'))
 });
 
-bearRouter.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
+app.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -55,10 +51,6 @@ bearRouter.use(express.static('game-deployment-builds/fight-the-bear/WebGL Build
       }
   }
 }))
-
-app.use('/tutorial', tutorialRouter)
-app.use('/fight-the-bear', bearRouter)
-app.use('/chicken-run', chickenRouter)
 
 app.listen(process.env.port || 3000);
 
