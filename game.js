@@ -20,7 +20,29 @@ app.get('/fight-the-bear',function(req,res){
   res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'));
 });
 
-app.use(express.static('game-deployment-builds', {
+app.use(express.static('game-deployment-builds/tutorial', {
+  setHeaders: function(res, path) {
+      if(path.endsWith(".gz")){
+        res.set("Content-Encoding", "gzip")
+      }
+      if(path.endsWith("wasm.gz")) {
+        res.set("Content-Type", "application/wasm")
+      }
+  }
+}))
+
+app.use(express.static('game-deployment-builds/chicken-run', {
+  setHeaders: function(res, path) {
+      if(path.endsWith(".gz")){
+        res.set("Content-Encoding", "gzip")
+      }
+      if(path.endsWith("wasm.gz")) {
+        res.set("Content-Type", "application/wasm")
+      }
+  }
+}))
+
+app.use(express.static('game-deployment-builds/fight-the-bear', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
