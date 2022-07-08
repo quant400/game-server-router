@@ -20,7 +20,7 @@ app.get('/fight-the-bear',function(req,res){
   res.sendFile(path.join(buildPath + 'fight-the-bear/WebGL Builds/index.html'));
 });
 
-app.use('static/tutorial/', express.static('game-deployment-builds/tutorial/WebGL Builds', {
+app.use('/static/tutorial', express.static('game-deployment-builds/tutorial/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -31,7 +31,7 @@ app.use('static/tutorial/', express.static('game-deployment-builds/tutorial/WebG
   }
 }))
 
-app.use('static/chicken-run/', express.static('game-deployment-builds/chicken-run/WebGL Builds', {
+app.use('/static/chicken-run', express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
@@ -42,7 +42,7 @@ app.use('static/chicken-run/', express.static('game-deployment-builds/chicken-ru
   }
 }))
 
-app.use('static/fight-the-bear/', express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
+app.use('/static/fight-the-bear', express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz")){
         res.set("Content-Encoding", "gzip")
