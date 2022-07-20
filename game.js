@@ -3,7 +3,7 @@ const app = express()
 const path = require('path')
 const buildPath = __dirname + '/game-deployment-builds/'
 
-app.get('/',function(req,res){
+app.get('/ping',function(req,res){
   res.send('server is running...')
 });
 
@@ -22,13 +22,13 @@ app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   }
 }))
 
-app.get('/tutorial',function(req,res){
+app.get('/',function(req,res){
   res.sendFile(path.join(buildPath + 'tutorial/WebGL Builds/index.html'))
 });
 
 app.use(express.static('game-deployment-builds/tutorial/WebGL Builds', {
   setHeaders: function(res, path) {
-      if(path.endsWith(".gz")){
+      if(path.endsWith(".gz") || path.endsWith(".unityweb")){
         res.set("Content-Encoding", "gzip")
       }
       if(path.endsWith("wasm.gz")) {
@@ -43,7 +43,7 @@ app.get('/fight-the-bear',function(req,res){
 
 app.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
   setHeaders: function(res, path) {
-      if(path.endsWith(".gz")){
+      if(path.endsWith(".gz") || path.endsWith(".unityweb")){
         res.set("Content-Encoding", "gzip")
       }
       if(path.endsWith("wasm.gz")) {
