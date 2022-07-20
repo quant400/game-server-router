@@ -3,15 +3,12 @@ const app = express()
 const path = require('path')
 const buildPath = __dirname + '/game-deployment-builds/'
 
-app.get('/ping',function(req,res){
-  res.send('server is running...')
+
+app.get('/',function(req,res){
+  res.sendFile(path.join(buildPath + 'tutorial/WebGL Builds/index.html'))
 });
 
-app.get('/chicken-run',function(req,res){
-  res.sendFile(path.join(buildPath + 'chicken-run/WebGL Builds/index.html'))
-});
-
-app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
+app.use(express.static('game-deployment-builds/tutorial/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz") || path.endsWith(".unityweb")){
         res.set("Content-Encoding", "gzip")
@@ -22,11 +19,15 @@ app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   }
 }))
 
-app.get('/',function(req,res){
-  res.sendFile(path.join(buildPath + 'tutorial/WebGL Builds/index.html'))
+app.get('/ping',function(req,res){
+  res.send('server is running...')
 });
 
-app.use(express.static('game-deployment-builds/tutorial/WebGL Builds', {
+app.get('/chicken-run',function(req,res){
+  res.sendFile(path.join(buildPath + 'chicken-run/WebGL Builds/index.html'))
+});
+
+app.use(express.static('game-deployment-builds/chicken-run/WebGL Builds', {
   setHeaders: function(res, path) {
       if(path.endsWith(".gz") || path.endsWith(".unityweb")){
         res.set("Content-Encoding", "gzip")
