@@ -53,6 +53,21 @@ app.use(express.static('game-deployment-builds/fight-the-bear/WebGL Builds', {
   }
 }))
 
+app.get('/warrior',function(req,res){
+  res.sendFile(path.join(buildPath + 'warrior/WebGL Builds/index.html'))
+});
+
+app.use(express.static('game-deployment-builds/warrior/WebGL Builds', {
+  setHeaders: function(res, path) {
+      if(path.endsWith(".gz") || path.endsWith(".unityweb")){
+        res.set("Content-Encoding", "gzip")
+      }
+      if(path.endsWith("wasm.gz")) {
+        res.set("Content-Type", "application/wasm")
+      }
+  }
+}))
+
 app.listen(process.env.port || 3000);
 
 console.log('Running at Port 3000...');
