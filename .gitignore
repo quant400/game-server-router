@@ -3,3 +3,5 @@ node_modules
 game-deployment-builds
 
 .DS_Store
+
+beta-builds
